@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BloodDonation.Services.Authorization.Domain.Entities;
+using BloodDonation.Services.Authorization.Domain.Persistence.Repositories;
+using BloodDonation.Services.Authorization.Infra.Persistence.Repositories;
 
 namespace BloodDonation.Services.Authorization.Infra
 {
@@ -23,7 +25,7 @@ namespace BloodDonation.Services.Authorization.Infra
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
 
-
+            services.AddScoped<IAuthRepository, AuthRepository>();
 
             return services;
         }

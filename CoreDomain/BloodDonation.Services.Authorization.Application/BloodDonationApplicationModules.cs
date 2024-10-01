@@ -1,4 +1,4 @@
-﻿using BloodDonation.Services.Authorization.Application.DTO;
+﻿using BloodDonation.Services.Authorization.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BloodDonation.Services.Authorization.Application
@@ -7,7 +7,7 @@ namespace BloodDonation.Services.Authorization.Application
     {
         public static IServiceCollection AddBloodDonationApplicationModules(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(EntityToDTOMapper));
+            services.AddScoped<IAuthService, AuthService>();
             return services;
         }
     }

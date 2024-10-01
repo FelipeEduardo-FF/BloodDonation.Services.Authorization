@@ -7,7 +7,6 @@ namespace BloodDonation.Services.Authorization.Domain.Persistence.Repositories
     public interface IAuthRepository
     {
         Task<Result> ChangePasswordAsync(string email, string currentPassword, string newPassword);
-        Task<Result<ApplicationUser>> FindByEmailAsync(string email);
         Task<Result<string>> GeneratePasswordResetTokenAsync(string email);
         Task<Result<string>> LoginAsync(string email, string password);
         Task<Result> RegisterAsync(string email, string password, int donorId);

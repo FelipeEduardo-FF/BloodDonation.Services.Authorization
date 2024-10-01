@@ -36,6 +36,7 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence.Repositories
                 var errors = result.Errors.Select(e => new Error(400, e.Description, ErrorType.Validation));
                 return OperationResult.Fail(errors);
             }
+            await _userManager.AddToRoleAsync(user!, "Donor");
 
             return OperationResult.Ok();
         }
@@ -103,15 +104,6 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence.Repositories
             return OperationResult.Ok();
         }
 
-        public async Task<Result<ApplicationUser>> FindByEmailAsync(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user is null)
-            {
-                return OperationResult.NotFound<ApplicationUser>("User not found");
-            }
-            return OperationResult.Ok(user);
-        }
 
         public async Task<Result<string>> GeneratePasswordResetTokenAsync(string email)
         {
