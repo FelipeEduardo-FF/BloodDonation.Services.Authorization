@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Infra.DTO;
-using Shared.Infra.Results;
+using Shared.Domain.Results;
 
 namespace BloodDonation.Services.Authorization.API.Extensions;
 

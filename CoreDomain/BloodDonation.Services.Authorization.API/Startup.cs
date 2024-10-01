@@ -24,7 +24,7 @@ namespace BloodDonation.Services.Authorization.Api
 
             services.AddEndpointsApiExplorer();
 
-            services.AddSharedInfraModules("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API", Version = "v1" });
+            services.AddSharedInfraModules("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "API Authorization", Version = "v1" });
             services.AddBloodDonationInfraModules();
             services.AddBloodDonationApplicationModules();
 

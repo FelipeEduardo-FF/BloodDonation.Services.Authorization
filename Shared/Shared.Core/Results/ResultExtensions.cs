@@ -1,4 +1,4 @@
-﻿namespace Shared.Infra.Results;
+﻿namespace Shared.Domain.Results;
 
 public static class ResultExtensions
 {

@@ -1,4 +1,4 @@
-﻿namespace Shared.Infra.Results.Errors;
+﻿namespace Shared.Domain.Results.Errors;
 
 public sealed record Error(int Code, string Message, ErrorType Type) : IError
 {

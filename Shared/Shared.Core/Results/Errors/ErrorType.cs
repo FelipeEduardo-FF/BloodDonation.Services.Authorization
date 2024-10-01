@@ -1,4 +1,4 @@
-﻿namespace Shared.Infra.Results.Errors;
+﻿namespace Shared.Domain.Results.Errors;
 
 public enum ErrorType
 {

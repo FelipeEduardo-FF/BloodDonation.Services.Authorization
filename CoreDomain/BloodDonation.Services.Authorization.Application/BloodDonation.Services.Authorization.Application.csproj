@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Service\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Domain.csproj" />
     <ProjectReference Include="..\..\Shared\Shared.Infra\Shared.Infra.csproj" />
     <ProjectReference Include="..\BloodDonation.Services.Authorization.Core\BloodDonation.Services.Authorization.Domain.csproj" />
     <ProjectReference Include="..\BloodDonation.Services.Authorization.Infra\BloodDonation.Services.Authorization.Infra.csproj" />
 
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Service\" />
   </ItemGroup>
 
   <ItemGroup>

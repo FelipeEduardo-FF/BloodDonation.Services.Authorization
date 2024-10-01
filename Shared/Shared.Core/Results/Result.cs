@@ -1,8 +1,8 @@
 ﻿
 
-using Shared.Infra.Results.Errors;
+using Shared.Domain.Results.Errors;
 
-namespace Shared.Infra.Results;
+namespace Shared.Domain.Results;
 
 public class Result : ResultBase
 {
