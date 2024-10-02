@@ -10,6 +10,5 @@ namespace BloodDonation.Services.Authorization.Application.InputModels
     {
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public int DonorId { get; set; }
     }
 }

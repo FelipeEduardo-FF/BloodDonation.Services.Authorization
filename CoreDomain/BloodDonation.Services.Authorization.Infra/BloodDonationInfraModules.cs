@@ -18,6 +18,7 @@ namespace BloodDonation.Services.Authorization.Infra
         public static IServiceCollection AddBloodDonationInfraModules(this IServiceCollection services)
         {
             services.AddDatabase();
+            services.AddAuthConfig();
             services.AddRepositories();
             return services;
         }       
@@ -47,20 +48,17 @@ namespace BloodDonation.Services.Authorization.Infra
             var serviceProvider = services.BuildServiceProvider();
             var _configuration = serviceProvider.GetRequiredService<IConfiguration>();
 
-
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                // Configurações de senha
-                options.Password.RequireDigit = false;            // Não exige número
-                options.Password.RequiredLength = 6;              // Tamanho mínimo da senha
-                options.Password.RequireNonAlphanumeric = false;  // Não exige caractere especial
-                options.Password.RequireUppercase = false;        // Não exige maiúsculas
-                options.Password.RequireLowercase = false;        // Não exige minúsculas
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
             })
             .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders();
 
-            // Configurar autenticação JWT
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
             services.AddAuthentication(options =>
             {
@@ -81,6 +79,7 @@ namespace BloodDonation.Services.Authorization.Infra
 
             return services;
         }
+
 
 
         public static IApplicationBuilder ApplyMigrations(this IApplicationBuilder app)

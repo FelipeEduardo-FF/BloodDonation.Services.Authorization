@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BloodDonation.Services.Authorization.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -30,9 +31,9 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence
                 }
             );
 
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            _modelBuilder.Entity<IdentityUser>().HasData
+            _modelBuilder.Entity<ApplicationUser>().HasData
             (
                 new 
                 {

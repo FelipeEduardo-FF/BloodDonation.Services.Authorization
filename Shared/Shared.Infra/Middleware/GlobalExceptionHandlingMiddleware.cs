@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Shared.Infra.DTO;
 using Shared.Infra.Exceptions;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
@@ -13,25 +15,33 @@ namespace Shared.Infra.Middleware
     public class GlobalExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-   
+        private readonly ActivitySource _activitySource;
+
+
 
         public GlobalExceptionHandlingMiddleware(
-            RequestDelegate next)
+            RequestDelegate next, ActivitySource activitySource)
         {
             _next = next;
+            _activitySource = activitySource;
         }
 
         public async Task Invoke(HttpContext context)
         {
+            using var activity = _activitySource.StartActivity("HandleRequest");
             try
             {
 
                 await _next(context);
-      
+
             }
             catch (Exception ex)
             {
+                activity.SetTag("exceptionType", ex.GetType().ToString());
+                activity.SetTag("stack", ex.StackTrace);
+                activity.SetTag("message", ex.Message);
                 await HandleExceptionAsync(context, ex);
+
             }
         }
 
@@ -41,6 +51,7 @@ namespace Shared.Infra.Middleware
             HttpStatusCode status;
             object stackTrace;
             string message = ex.Message;
+            Log.Error(ex, ex.Message, ex.StackTrace);
 
             if (ex is UnauthorizedAccessException)
             {
@@ -50,7 +61,7 @@ namespace Shared.Infra.Middleware
             else if (ex is ExceptionBase exceptionBase)
             {
                 if (exceptionBase is NotFoundException)
-                    status = HttpStatusCode.NotFound;            
+                    status = HttpStatusCode.NotFound;
                 else if (exceptionBase is PaymentRequiredException)
                     status = HttpStatusCode.PaymentRequired;
                 else if (exceptionBase is BadRequestException)
@@ -64,7 +75,7 @@ namespace Shared.Infra.Middleware
             {
                 status = HttpStatusCode.InternalServerError;
                 stackTrace = ex.StackTrace;
-                Log.Error(ex,ex.Message,ex.StackTrace);
+
             }
 
             var apiResponse = new ApiResponse<object>
@@ -74,7 +85,7 @@ namespace Shared.Infra.Middleware
                 Error = stackTrace
             };
 
-            
+
 
             var exceptionResult = JsonSerializer.Serialize(apiResponse);
             context.Response.ContentType = "application/json";
