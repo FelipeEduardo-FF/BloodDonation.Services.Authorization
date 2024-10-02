@@ -1,6 +1,6 @@
 ﻿using BloodDonation.Services.Authorization.API.Extensions;
 using BloodDonation.Services.Authorization.Application.InputModels;
-using BloodDonation.Services.Authorization.Application.Services;
+using BloodDonation.Services.Authorization.Application.Services.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Domain.Results;
 

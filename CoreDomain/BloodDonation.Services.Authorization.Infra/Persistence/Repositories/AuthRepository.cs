@@ -26,9 +26,9 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Result> RegisterAsync(string email, string password, int donorId)
+        public async Task<Result> RegisterAsync(string email, string password)
         {
-            var user = new ApplicationUser { UserName = email, Email = email, DonorId = donorId };
+            var user = new ApplicationUser { UserName = email, Email = email};
             var result= await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
@@ -36,7 +36,7 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence.Repositories
                 var errors = result.Errors.Select(e => new Error(400, e.Description, ErrorType.Validation));
                 return OperationResult.Fail(errors);
             }
-            await _userManager.AddToRoleAsync(user!, "Donor");
+            await _userManager.AddToRoleAsync(user!, "STAFF");
 
             return OperationResult.Ok();
         }
@@ -124,9 +124,6 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence.Repositories
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
-
-            if (user.DonorId is not null)
-                claims.Add(new Claim("DonorId", user.DonorId.ToString()!));
 
             var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)

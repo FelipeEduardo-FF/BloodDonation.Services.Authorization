@@ -1,4 +1,4 @@
-﻿using BloodDonation.Services.Authorization.Application.Services;
+﻿using BloodDonation.Services.Authorization.Application.Services.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BloodDonation.Services.Authorization.Application

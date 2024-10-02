@@ -2,7 +2,7 @@
 using BloodDonation.Services.Authorization.Domain.Persistence.Repositories;
 using Shared.Domain.Results;
 
-namespace BloodDonation.Services.Authorization.Application.Services
+namespace BloodDonation.Services.Authorization.Application.Services.Authorization
 {
     public class AuthService : IAuthService
     {
@@ -30,7 +30,7 @@ namespace BloodDonation.Services.Authorization.Application.Services
 
         public async Task<Result> RegisterAsync(RegisterInputModel model)
         {
-            return await _authRepository.RegisterAsync(model.Email, model.Password, model.DonorId);
+            return await _authRepository.RegisterAsync(model.Email, model.Password);
         }
 
         public async Task<Result> ResetPasswordAsync(ResetPasswordInputModel model)

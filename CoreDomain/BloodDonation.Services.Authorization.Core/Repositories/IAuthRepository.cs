@@ -9,7 +9,7 @@ namespace BloodDonation.Services.Authorization.Domain.Persistence.Repositories
         Task<Result> ChangePasswordAsync(string email, string currentPassword, string newPassword);
         Task<Result<string>> GeneratePasswordResetTokenAsync(string email);
         Task<Result<string>> LoginAsync(string email, string password);
-        Task<Result> RegisterAsync(string email, string password, int donorId);
+        Task<Result> RegisterAsync(string email, string password);
         Task<Result> ResetPasswordAsync(string email, string token, string newPassword);
     }
 }

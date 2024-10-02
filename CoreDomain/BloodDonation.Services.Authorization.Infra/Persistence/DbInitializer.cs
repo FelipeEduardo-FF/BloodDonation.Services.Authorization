@@ -19,8 +19,8 @@ namespace BloodDonation.Services.Authorization.Infra.Persistence
                 new IdentityRole
                 {
                     Id = "8305f33b-5412-47d0-b4ab-17cf6867f2e2",
-                    Name = "Donor",
-                    NormalizedName = "DONOR"
+                    Name = "Staff",
+                    NormalizedName = "STAFF"
                 },
                 new IdentityRole
                 {

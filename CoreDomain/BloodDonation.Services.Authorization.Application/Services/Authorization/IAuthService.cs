@@ -1,7 +1,7 @@
 ﻿using BloodDonation.Services.Authorization.Application.InputModels;
 using Shared.Domain.Results;
 
-namespace BloodDonation.Services.Authorization.Application.Services
+namespace BloodDonation.Services.Authorization.Application.Services.Authorization
 {
     public interface IAuthService
     {
